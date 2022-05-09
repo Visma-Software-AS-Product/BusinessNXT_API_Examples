@@ -11,11 +11,15 @@
             "module": "flask",
             "env": {
                 "FLASK_APP": "app.py",
-                "FLASK_ENV": "development"
+                "FLASK_ENV": "development",
+                "CONNECT_CLIENT_ID": "swas_vbc_excel",
+                "CONNECT_CLIENT_SECRET": "6pvL7aJXSZcK4mwLFrwibQaUXX64mCpQZWi8D4Q2QmuK6et3IRfytEWpUwrdtb7O",
+                "SECRET_KEY": "Secret key"
             },
             "args": [
                 "run",
-                "--no-debugger"
+                "--no-debugger",
+                "--cert=adhoc"
             ],
             "jinja": true,
             "justMyCode": true
