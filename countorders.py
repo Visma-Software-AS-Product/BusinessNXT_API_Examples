@@ -2,10 +2,10 @@ from flask import Blueprint, render_template, session
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
-listorders = Blueprint('listorders', __name__)
+countorders = Blueprint('countorders', __name__)
 
-@listorders.route('/listorders')
-def getorderlist():
+@countorders.route('/countorders')
+def gettotalorders():
     # Select your transport with a defined url endpoint
     transport = AIOHTTPTransport(url="https://business.visma.net/api/graphql", headers={ 'Authorization': 'Bearer ' + session["token"] })
 
@@ -19,16 +19,11 @@ def getorderlist():
             {                
                 useCompany(no: $companyno)
                 {
-                    order{
-                        items{
+                    order_aggregate{
+                        count{
                             orderNo
-                            name
-                            transactionType
-                            orderDate
-                            customerNo
-                            supplierNo
+                            }
                         }
-                    }
                 }            
             }
         """
@@ -39,4 +34,4 @@ def getorderlist():
     # Execute the query on the transport
     result = client.execute(query, variable_values=params)
     
-    return render_template("listorders.html", orders = result["useCompany"]["order"])   
+    return render_template("countorders.html", orders = result["useCompany"]["order_aggregate"]["count"])   

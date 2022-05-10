@@ -15,6 +15,7 @@ from authenticate import authenticate
 # from authenticate_authlib import authenticate_authlib
 from listorders import listorders
 from getavailablecompanies import getavailablecompanies
+from countorders import countorders
 
 import os
 
@@ -26,6 +27,7 @@ app.register_blueprint(authenticate)
 # app.register_blueprint(authenticate_authlib)
 app.register_blueprint(listorders)
 app.register_blueprint(getavailablecompanies)
+app.register_blueprint(countorders)
 
 @app.route("/")
 def index():
