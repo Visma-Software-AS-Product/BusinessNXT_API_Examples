@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Visma Business NXT Examples</title>
+    </head>
+    <body>                
+
+        <h1>A list of orders</h1>
+
+            <table>
+                <tr>
+                    <th>Ordernumber</th>
+                    <th>Customer number</th>
+                    <th>Customer name</th>
+                </tr>
+                {%for order in orders["items"]%}
+                <tr>
+                    <td>{{ order["orderNo"] }}</td>
+                    <td>{{ order["customerNo"] }}</td>
+                    <td>{{ order["name"] }}</td>
+                </tr>                
+                {%endfor%}
+            </table>            
+    </body>
+</html>

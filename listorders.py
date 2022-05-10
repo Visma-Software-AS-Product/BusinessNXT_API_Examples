@@ -1,22 +1,23 @@
-from flask import Blueprint, session
+from flask import Blueprint, render_template, session
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
 listorders = Blueprint('listorders', __name__)
 
-@listorders.route('/listorders/<companyno>')
-def getorderlist(companyno):
+@listorders.route('/listorders')
+def getorderlist():
     # Select your transport with a defined url endpoint
-    transport = AIOHTTPTransport(url="https://business.visma.net/api/graphql")
+    transport = AIOHTTPTransport(url="https://business.visma.net/api/graphql", headers={ 'Authorization': 'Bearer ' + session["token"] })
 
     # Create a GraphQL client using the defined transport
-    client = Client(transport=transport, fetch_schema_from_transport=True, headers={ 'Authorization': 'Bearer ' + session["access_token"] })
+    client = Client(transport=transport, fetch_schema_from_transport=True)
 
     # Provide a GraphQL query
     query = gql(
             """
-            {
-                useCompany(no:3538773)
+            query getorders ($companyno: Int!)
+            {                
+                useCompany(no: $companyno)
                 {
                     order{
                         items{
@@ -28,11 +29,14 @@ def getorderlist(companyno):
                             supplierNo
                         }
                     }
-                }
+                }            
             }
         """
         )
+    
+    params = {"companyno": int(session["companyno"])}
 
     # Execute the query on the transport
-    result = client.execute(query)
-    print(result)
+    result = client.execute(query, variable_values=params)
+    
+    return render_template("listorders.html", orders = result["useCompany"]["order"])    
