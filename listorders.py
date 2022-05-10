@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, session
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
@@ -10,7 +10,7 @@ def getorderlist(companyno):
     transport = AIOHTTPTransport(url="https://business.visma.net/api/graphql")
 
     # Create a GraphQL client using the defined transport
-    client = Client(transport=transport, fetch_schema_from_transport=True, headers={ 'Authorization': 'Bearer ' + token })
+    client = Client(transport=transport, fetch_schema_from_transport=True, headers={ 'Authorization': 'Bearer ' + session["access_token"] })
 
     # Provide a GraphQL query
     query = gql(

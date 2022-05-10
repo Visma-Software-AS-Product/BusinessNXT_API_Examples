@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, request, json
+from flask import Blueprint, redirect, session, url_for, request, json
 import os, uuid, requests
 
 authenticate = Blueprint('authenticate', __name__)
@@ -7,7 +7,7 @@ authenticate = Blueprint('authenticate', __name__)
 @authenticate.route('/login')
 def login():
 
-    redirect_uri = url_for('authorize', _external=True)
+    redirect_uri = url_for('authenticate.authorize', _external=True)
 
     # URL for new token   
     vnurl = "https://connect.visma.com/connect/authorize"
@@ -45,3 +45,8 @@ def authorize():
 
     if response.status_code == 200:
         json_data = json.loads(response.text)
+
+        # Sets the token in the browser session
+        session["token"] = json_data["access_token"]    
+
+        return redirect("/")    

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Visma Business NXT Examples</title>
+    </head>
+    <body>        
+        {% if session['token'] %}
+            <p>You are logged in</p>
+        {% else %}
+            <p>You are not logged in</p>
+        {% endif %}
+
+        <ul>
+            <li><a href="{{ url_for('authenticate.login') }}">Login (manual)</a></li>        
+            <li><a href="{{ url_for('getavailablecompanies.getavailcompanies') }}">Get Available Companies</a></li>
+        </ul>        
+    </body>
+</html>

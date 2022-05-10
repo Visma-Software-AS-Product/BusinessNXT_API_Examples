@@ -9,11 +9,12 @@
 
 # https://docs.business.visma.net/docs/authentication/overview
 
-from flask import Flask
+from flask import Flask, render_template
 
 from authenticate import authenticate
-from authenticate_authlib import authenticate_authlib
+# from authenticate_authlib import authenticate_authlib
 from listorders import listorders
+from getavailablecompanies import getavailablecompanies
 
 import os
 
@@ -22,5 +23,10 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY') 
 
 app.register_blueprint(authenticate)
-app.register_blueprint(authenticate_authlib)
+# app.register_blueprint(authenticate_authlib)
 app.register_blueprint(listorders)
+app.register_blueprint(getavailablecompanies)
+
+@app.route("/")
+def index():
+    return render_template("index.html")

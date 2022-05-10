@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Visma Business NXT Examples</title>
+    </head>
+    <body>                
+
+        <h1>Here are your available companies</h1>
+
+            <ul>
+                {%for item in availcompanies["items"]%}
+                <li><a href="www.visma.com">{{ item["name"] }} - {{ item["vismaNetCompanyId"] }} </a></li>
+                {%endfor%}
+            </ul>                           
+    </body>
+</html>
