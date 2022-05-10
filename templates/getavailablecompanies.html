@@ -10,7 +10,7 @@
 
             <ul>
                 {%for item in availcompanies["items"]%}
-                <li><a href="www.visma.com">{{ item["name"] }} - {{ item["vismaNetCompanyId"] }} </a></li>
+                <li><a href="{{ url_for('getavailablecompanies.setselectedcompany', companyno = item['vismaNetCompanyId']) }}">{{ item["name"] }} - {{ item["vismaNetCompanyId"] }} </a></li>
                 {%endfor%}
             </ul>                           
     </body>

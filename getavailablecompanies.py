@@ -1,5 +1,4 @@
-import json
-from flask import Blueprint, render_template, session
+from flask import Blueprint, redirect, render_template, session
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
@@ -32,6 +31,10 @@ def getavailcompanies():
     # Execute the query on the transport
     result = client.execute(query)
 
-    # parsed = client.parse_results(result)
-
     return render_template("getavailablecompanies.html", availcompanies = result["availableCompanies"])    
+
+@getavailablecompanies.route('/setselectedcompany/<companyno>')
+def setselectedcompany(companyno):
+    session["companyno"] = companyno
+
+    return redirect("/")

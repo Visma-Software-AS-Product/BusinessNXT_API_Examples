@@ -7,6 +7,8 @@
     <body>        
         {% if session['token'] %}
             <p>You are logged in</p>
+            <p>Token expires: {{ session['expiretime'] }}</p>
+            <p>You have selected company {{ session['companyno'] }}</p>
         {% else %}
             <p>You are not logged in</p>
         {% endif %}

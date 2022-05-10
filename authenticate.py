@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from flask import Blueprint, redirect, session, url_for, request, json
 import os, uuid, requests
 
@@ -48,5 +49,6 @@ def authorize():
 
         # Sets the token in the browser session
         session["token"] = json_data["access_token"]    
+        session["expiretime"] = datetime.now() + timedelta(seconds=json_data["expires_in"])
 
         return redirect("/")    
