@@ -16,6 +16,7 @@ from authenticate import authenticate
 from listorders import listorders
 from getavailablecompanies import getavailablecompanies
 from countorders import countorders
+from createorder import createorder
 
 import os
 
@@ -28,6 +29,7 @@ app.register_blueprint(authenticate)
 app.register_blueprint(listorders)
 app.register_blueprint(getavailablecompanies)
 app.register_blueprint(countorders)
+app.register_blueprint(createorder)
 
 @app.route("/")
 def index():
