@@ -3,13 +3,22 @@
     <head>
         <meta charset="utf-8" />
         <title>Visma Business NXT Examples</title>
+        <style>
+            input{
+                margin-top: 10px;
+            }
+          </style>
     </head>
     <body>                
 
         <h1>Create your own order</h1>
         <form action="/createorder" method="post">
-            <input type="text" name="orderName" placeholder="OrderName"/>
-            <input type="number" name="customerNo" placeholder="CustomerNumber"/>
+            <input type="text" name="orderName" placeholder="Order text"/>
+            <br>
+            <input type="number" name="customerNo" placeholder="Customer number"/>
+            <br>
+            <input type="number" name="orderDate" placeholder="Date in YYYYMMDD format">
+            <br>
             <input type="submit" value="Send"/>
         </form>
 
@@ -19,6 +28,9 @@
         <p>Order Date: {{ order["orderDate"]}}</p>
         <p>Customer Number: {{ order["customerNo"]}}</p>
         {%endfor%}
+
+        <h2>Would you like to add orderlines to your order?</h2>
+        <a href="{{ url_for('addorderlines.postorderLines')}}">Add orderlines</a>
 
     </body>
 </html>
