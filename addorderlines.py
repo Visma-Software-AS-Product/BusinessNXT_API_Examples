@@ -46,8 +46,10 @@ def postorderLines():
         """
     )
 
-    params = {"companyno": int(session["companyno"]), 'orderNumber' : int(request.form['orderNo']), 
-    'productNumber': request.form['productNo'], 'quantity' : int(request.form['quantity'])}
+    params = {"companyno": int(session["companyno"]), 
+    'orderNumber' : int(request.form['orderNo']), 
+    'productNumber': request.form['productNo'], 
+    'quantity' : int(request.form['quantity'])}
 
     # Execute the query on the transport
     result = client.execute(query, variable_values=params)
