@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Visma Business NXT Examples</title>
+        <style>
+            input{
+                margin-top: 10px;
+            }
+          </style>
+    </head>
+    <body>                
+
+        <h1>Add orderlines</h1>
+        <form action="/addorderlines" method="post">
+            <input type="number" name="orderNo" placeholder="Order number"/>
+            <br>
+            <input type="number" name="productNo" placeholder="Product number"/>
+            <br>
+            <input type="number" name="quantity" placeholder="Quantity">
+            <br>
+            <input type="submit" value="Send"/>
+        </form>
+
+        <h2>Result of entry</h2>
+        {%for order in orders%}
+        <p>Line number: {{ order["lineNo"] }}</p>
+        <p>Product added to order number: {{ order["orderNo"] }}</p>
+        {%endfor%}
+
+    </body>
+</html>

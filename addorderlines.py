@@ -3,17 +3,17 @@ from flask import Blueprint, render_template, session, request
 from gql import gql, Client
 from gql.transport.aiohttp import AIOHTTPTransport
 
-createorder = Blueprint('createorder', __name__)
+addorderlines = Blueprint('addorderlines', __name__)
 
 
-@createorder.route('/createorder', methods=['GET'])
+@addorderlines.route('/addorderlines', methods=['GET'])
 def getOrderData():
 
-    return render_template('createorder.html')
+    return render_template('addorderlines.html')
 
     
-@createorder.route('/createorder', methods=['POST'])
-def postorder():
+@addorderlines.route('/addorderlines', methods=['POST'])
+def postorderLines():
     # Select your transport with a defined url endpoint
     transport = AIOHTTPTransport(url="https://business.visma.net/api/graphql",
                                  headers={'Authorization': 'Bearer ' + session["token"]})
@@ -24,22 +24,21 @@ def postorder():
     # Provide a GraphQL query
     query = gql(
         """
-        mutation create_order($companyno : Int!, $customerNo : Int!, $orderName : String, $orderDate : Int)
+        mutation create_order_line($companyno : Int!, $orderNumber : Int!, $productNumber: String, $quantity : Decimal)
         {
             useCompany(no : $companyno)
             {
-                    order_create(values:[{
-                        orderDate : $orderDate
-                        customerNo : $customerNo
-                        name : $orderName
+                    orderLine_create(values:[{
+                        orderNo : $orderNumber
+                        productNo : $productNumber
+                        quantity : $quantity
                         }
                         ])
                     {
                         affectedRows
                             items{
+                                lineNo
                                 orderNo
-                                orderDate
-                                customerNo
                                 }
                         }
                 }
@@ -47,10 +46,10 @@ def postorder():
         """
     )
 
-    params = {"companyno": int(session["companyno"]), 'customerNo' : int(request.form['customerNo']), 
-    'orderName': request.form['orderName'], 'orderdate' : int(request.form['orderDate'])}
+    params = {"companyno": int(session["companyno"]), 'orderNumber' : int(request.form['orderNo']), 
+    'productNumber': request.form['productNo'], 'quantity' : int(request.form['quantity'])}
 
     # Execute the query on the transport
     result = client.execute(query, variable_values=params)
 
-    return render_template("createorder.html", orders=result["useCompany"]["order_create"]["items"] )
+    return render_template("addorderlines.html", orders=result["useCompany"]["orderLine_create"]["items"] )
