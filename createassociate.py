@@ -23,7 +23,7 @@ def postAssociate():
     # Provide a GraphQL query
     query = gql(
         """
-        mutation create_associate($companyno : Int!, $name : String, $shortName : String, $customerNumber : Int!, $supplierNumber : Int!)
+        mutation create_associate($companyno : Int!, $name : String, $shortName : String, $customerNumber : Int, $supplierNumber : Int)
         {
             useCompany(no : $companyno)
             {
@@ -52,8 +52,8 @@ def postAssociate():
     params = {"companyno": int(session["companyno"]), 
     'name' : request.form['name'], 
     'shortName': request.form['shortName'], 
-    'customerNumber' : int(request.form['customerNo']) if request.form['customerNo'] is not None else None, 
-    'supplierNumber' : int(request.form['supplierNo']) if request.form['supplierNo'] is not None else None}
+    'customerNumber' : int(request.form['customerNo']) if request.form['customerNo'] != '' else None, 
+    'supplierNumber' : int(request.form['supplierNo']) if request.form['supplierNo'] != '' else None}
 
     # Execute the query on the transport
     result = client.execute(query, variable_values=params)
