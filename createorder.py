@@ -24,7 +24,7 @@ def postorder():
     # Provide a GraphQL query
     query = gql(
         """
-        mutation create_order($companyno : Int!, $customerNo : Int!, $orderName : String, $orderDate : Int)
+        mutation create_order($companyno : Int!, $customerNumber : Int!, $orderName : String, $orderDate : Int)
         {
             useCompany(no : $companyno)
             {
@@ -47,8 +47,10 @@ def postorder():
         """
     )
 
-    params = {"companyno": int(session["companyno"]), 'customerNo' : int(request.form['customerNo']), 
-    'orderName': request.form['orderName'], 'orderdate' : int(request.form['orderDate'])}
+    params = {"companyno": int(session["companyno"]),
+     'customerNumber' : int(request.form['customerNo']), 
+    'orderName': request.form['orderName'], 
+    'orderdate' : int(request.form['orderDate'])}
 
     # Execute the query on the transport
     result = client.execute(query, variable_values=params)

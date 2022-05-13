@@ -18,6 +18,7 @@ from getavailablecompanies import getavailablecompanies
 from countorders import countorders
 from createorder import createorder
 from addorderlines import addorderlines
+from createassociate import createassociate
 
 import os
 
@@ -32,6 +33,7 @@ app.register_blueprint(getavailablecompanies)
 app.register_blueprint(countorders)
 app.register_blueprint(createorder)
 app.register_blueprint(addorderlines)
+app.register_blueprint(createassociate)
 
 @app.route("/")
 def index():
